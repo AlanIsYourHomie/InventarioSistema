@@ -238,11 +238,36 @@ if ($login->isUserLoggedIn() == true) {
 																<i class="input-icon uil uil-calendar-alt"></i>
 															</div>
 															<script>
-																$('.datepicker').datepicker({
+																const hoy = new Date();
+																const MaxFecha = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate())
+																$('#fecnac').datepicker({
 																	format: 'yyyy-mm-dd',
 																	value: '2000-01-01',
 																	language: 'es',
-																	showRightIcon: false
+																	showRightIcon: false,
+																	uiLibrary: 'bootstrap4.5',
+																	maxDate: MaxFecha
+																});
+
+																$('#registro').on('submit', function (e) {
+																	const fechaNacStr = $('#fecnac').val();
+																	if (!fechaNacStr) {
+																		alert("Por favor, selecciona tu fecha de nacimiento.");
+																		e.preventDefault();
+																		return;
+																	}
+
+																	const fechaNac = new Date(fechaNacStr);
+																	let edad = hoy.getFullYear() - fechaNac.getFullYear();
+																	const mes = hoy.getMonth() - fechaNac.getMonth();
+																	if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+																		edad--;
+																	}
+
+																	if (edad < 18) {
+																		alert("Debes tener al menos 18 años para registrarte.");
+																		e.preventDefault();
+																	}
 																});
 															</script>
 															<div class="form-group mt-2">
