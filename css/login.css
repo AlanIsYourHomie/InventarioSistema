@@ -1,0 +1,352 @@
+h2 {
+  color: white
+}
+
+p {
+  color: white
+}
+
+body,
+html {
+  height: 100%;
+  background-repeat: no-repeat;
+  background: url(../img/green.jpg);
+  background-size: 100% 100%;
+}
+
+
+.card-container.card {
+  width: 300px;
+  padding: 0px 0px;
+}
+
+.btn {
+  font-weight: 700;
+  height: 36px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+/*
+ * Card component
+ */
+
+.profile-img-card {
+  width: 10%;
+  height: 10%;
+  margin: 0px auto 10px;
+  display: block;
+}
+
+/*
+ * Form styles
+ */
+.profile-name-card {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin: 1px 0 0;
+  min-height: 1em;
+}
+
+.reauth-email {
+  display: block;
+  color: #404040;
+  line-height: 2;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+  direction: ltr;
+  height: 44px;
+  font-size: 16px;
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  z-index: 1;
+  position: relative;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+  border-color: rgb(104, 145, 162);
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+  /*background-color: #4d90fe; */
+  /*background-color: rgb(104, 145, 162);
+    / background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+  padding: 0px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  -o-transition: all 0.218s;
+  -moz-transition: all 0.218s;
+  -webkit-transition: all 0.218s;
+  transition: all 0.218s;
+}
+
+
+.forgot-password {
+  color: rgb(104, 145, 162);
+}
+
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus {
+  color: rgb(12, 97, 33);
+}
+
+/*La card*/
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300;
+  padding: 40px;
+  margin: 20px auto;
+  transform: translate(-50%, -55%);
+  background: rgba(0, 0, 0, .6);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  border-radius: 10px;
+}
+
+.login-box p:first-child {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus~label,
+.login-box .user-box input:valid~label {
+  top: -28px;
+  left: 0;
+  color: #fff;
+  font-size: 12px;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 3px
+}
+
+.login-box a:hover {
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff);
+  animation: btn-anim1 1.5s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #fff);
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: .375s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #fff);
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #fff);
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+.login-box p:last-child {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.login-box a.a2 {
+  color: #fff;
+  text-decoration: none;
+}
+
+.login-box a.a2:hover {
+  background: transparent;
+  color: #aaa;
+  border-radius: 5px;
+}
+
+/*EL BOTON GOOD*/
+.button {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(60, 255, 0);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.button:hover::before {
+  scale: 6;
+}
+
+.button:hover {
+  color: #212121;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgb(60, 255, 0);
+}
+
+.button:active {
+  scale: 1;
+}
