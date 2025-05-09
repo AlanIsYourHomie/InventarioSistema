@@ -11,13 +11,13 @@
 					<form class="form" method="post" id="guardar_producto" name="guardar_producto"
 						enctype="multipart/form-data">
 						<div id="resultados_ajax_productos"></div>
-						<div class="row mb-3">
+						<!--<div class="row mb-3">
 							<label for="codigo" class="col-sm-2 col-form-label text-end">Código</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="codigo" name="codigo"
 									placeholder="Código del producto" required>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="row mb-3">
 							<label for="nombre" class="col-sm-2 col-form-label text-end">Nombre</label>

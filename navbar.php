@@ -38,17 +38,17 @@ if (isset($title)) {
           } ?> nav-item">
             <a class="nav-link mx-2" href="clientes.php"><i class='bi bi-people-fill'></i> Clientes</a>
           </li>
-          <li class="nav-item dropdown">
+          <!--<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class='bi bi-bar-chart-fill'></i> Informes
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="inform1.php">Registro Productos</a></li>
               <li><a class="dropdown-item" href="informe2.php">Recuento de Empleados</a></li>
-              <!--<li><a class="dropdown-item" href="#">Something else here</a></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
 

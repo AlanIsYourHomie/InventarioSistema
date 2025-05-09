@@ -27,8 +27,8 @@ if (empty($_POST['nombre'])) {
     $errors[] = "La dirección no puede estar vacía";
 } elseif (empty($_POST['fecnac'])) {
     $errors[] = "El correo electrónico no puede estar vacío";
-} elseif (empty($_POST['dni'])) {
-    $errors[] = "Escriba su DNI";
+} elseif (empty($_POST['identificador'])) {
+    $errors[] = "Escriba su identificador";
 } elseif (empty($_POST['celular'])) {
     $errors[] = "Escriba su celular";
 } elseif (strlen($_POST['usuario_email']) > 64) {
@@ -51,7 +51,7 @@ if (empty($_POST['nombre'])) {
     && !empty($_POST['fecnac'])
     //&& !empty($_POST['sexo'])
     //&& !empty($_POST['estado'])
-    && !empty($_POST['dni'])
+    && !empty($_POST['identificador'])
     && !empty($_POST['celular'])
 ) {
     require_once("../config/db.php"); //Contiene las variables de configuracion para conectar a la base de datos
@@ -65,7 +65,7 @@ if (empty($_POST['nombre'])) {
     $usuario_email = mysqli_real_escape_string($con, (strip_tags($_POST["usuario_email"], ENT_QUOTES)));
     $direccion = mysqli_real_escape_string($con, (strip_tags($_POST["direccion"], ENT_QUOTES)));
     $fecnac = mysqli_real_escape_string($con, (strip_tags($_POST["fecnac"], ENT_QUOTES)));
-    $dni = mysqli_real_escape_string($con, (strip_tags($_POST["dni"], ENT_QUOTES)));
+    //$identificador = mysqli_real_escape_string($con, (strip_tags($_POST["identificador"], ENT_QUOTES)));
     $celular = mysqli_real_escape_string($con, (strip_tags($_POST["celular"], ENT_QUOTES)));
     $user_password = $_POST['user_password_new'];
     $fecha_agregado = date("Y-m-d H:i:s");
@@ -75,7 +75,9 @@ if (empty($_POST['nombre'])) {
     $contraseña_hash = password_hash($user_password, PASSWORD_DEFAULT);
 
     $sexo = mysqli_real_escape_string($con, $_POST["sexo"]);
+    $tipo_identificador = mysqli_real_escape_string($con, $_POST["tipo_identificador"]);
     $estado = mysqli_real_escape_string($con, $_POST["estado"]);
+    $identificador = mysqli_real_escape_string($con, $_POST["identificador"]);
     $cargo = intval($_POST['cargo']);
     $area = intval($_POST['area']);
     $distrito = intval($_POST['distrito']);
@@ -87,12 +89,27 @@ if (empty($_POST['nombre'])) {
     if ($query_check_user == 1) {
         $errors[] = "Lo sentimos , el nombre de usuario ó la dirección de correo electrónico ya está en uso.";
     } else {
-        // write new user's data into database
-        //$sql = "INSERT INTO usuario (nombre_usuario, contraseña_hash, usuario_email, fecha_agregado)
-        //        VALUES('" . $nombre . "','" . $apepaterno . "','" . $nombre_usuario . "', '" . $contraseña_hash . "', '" . $usuario_email . "','" . $fecha_agregado . "');";
-        $sql = "CALL sp_guardarUsuarioPersona('" . $nombre_usuario . "','" . $contraseña_hash . "','" . $usuario_email . "','" . $fecha_agregado . "',1,'" . $apepaterno . "',
-               '" . $apematerno . "','" . $nombre . "','" . $dni . "','" . $sexo . "','" . $direccion . "','" . $estado . "','" . $celular . "'," . $distrito . ",'" . $fecnac . "'," . $cargo . ",
-               " . $area . ")";
+        $sql = "CALL registrar_usuario2(
+            '" . $apepaterno . "',
+            '" . $apematerno . "',
+            '" . $nombre . "',
+            '" . $identificador . "',  -- Aquí pasa 'dni' o 'pasaporte'
+            '" . $sexo . "',
+            '" . $direccion . "',
+            '" . $estado . "',
+            '" . $celular . "',
+            " . $distrito . ",
+            '" . $fecnac . "',
+            " . $cargo . ",
+            " . $area . ",
+            '" . $nombre_usuario . "',
+            '" . $contraseña_hash . "',
+            '" . $usuario_email . "',
+            '" . $fecha_agregado . "',
+            1,  -- Este es el idTipo_Acceso, ajusta según el valor correcto
+            '" . $tipo_identificador . "'
+        )";
+
         $query_new_user_insert = mysqli_query($con, $sql);
 
         // if user has been added successfully

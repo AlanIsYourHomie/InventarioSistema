@@ -54,7 +54,7 @@ if ($action == 'ajax') {
 		$sWhere .= " and idCategoria='$idCategoria'";
 	}
 	$sWhere .= " AND estado = 1";
-	$sWhere .= " order by nom_producto asc";
+	$sWhere .= " order by idProducto asc";
 	include 'pagination.php'; //include pagination file
 	//pagination variables
 	$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;

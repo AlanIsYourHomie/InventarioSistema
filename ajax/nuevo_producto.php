@@ -2,16 +2,17 @@
 include('is_logged.php'); //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 
 /*Inicia validacion del lado del servidor*/
-if (empty($_POST['codigo'])) {
-	$errors[] = "Código vacío";
-} else if (empty($_POST['nombre'])) {
+//if (empty($_POST['codigo'])) {
+//	$errors[] = "Código vacío";
+//} else 
+if (empty($_POST['nombre'])) {
 	$errors[] = "Nombre del producto vacío";
 } else if ($_POST['stock'] == "") {
 	$errors[] = "Stock del producto vacío";
 } else if (empty($_POST['precio'])) {
 	$errors[] = "Precio de venta vacío";
 } else if (
-	!empty($_POST['codigo']) &&
+	//
 	!empty($_POST['nombre']) &&
 	$_POST['stock'] != "" &&
 	!empty($_POST['precio'])
@@ -21,7 +22,7 @@ if (empty($_POST['codigo'])) {
 	require_once("../config/conexion.php"); //Contiene funcion que conecta a la base de datos
 	include("../funciones.php");
 	// escaping, additionally removing everything that could be (html/javascript-) code
-	$codigo = mysqli_real_escape_string($con, (strip_tags($_POST["codigo"], ENT_QUOTES)));
+	//$codigo = mysqli_real_escape_string($con, (strip_tags($_POST["codigo"], ENT_QUOTES)));
 	$nombre = mysqli_real_escape_string($con, (strip_tags($_POST["nombre"], ENT_QUOTES)));
 	$stock = intval($_POST['stock']);
 	$id_categoria = intval($_POST['categoria']);
@@ -31,6 +32,18 @@ if (empty($_POST['codigo'])) {
 
 	$imagen_blob = file_get_contents($_FILES['imagen']['tmp_name']);
 
+	// Obtener el último código de producto
+	$query = mysqli_query($con, "SELECT codigo_producto FROM producto ORDER BY idProducto DESC LIMIT 1");
+	$last_code = mysqli_fetch_assoc($query);
+
+	// Generar el nuevo código de producto
+	if ($last_code) {
+		$last_number = intval(substr($last_code['codigo_producto'], 5)); // Extraemos la parte numérica
+		$new_number = str_pad($last_number + 1, 5, "0", STR_PAD_LEFT); // Incrementamos y formateamos el número con ceros
+		$codigo = "PROD-" . $new_number; // Generamos el nuevo código
+	} else {
+		$codigo = "PROD-00001"; // Si no hay productos, empezamos desde PROD-00001
+	}
 
 	$sql = "INSERT INTO producto (codigo_producto, nom_Producto, fecha_adicion, Precio_Venta, stock, idCategoria, estado, imagen, marca) 
 		VALUES ('$codigo','$nombre','$date_added','$precio_venta', '$stock','$id_categoria', '1', ?, '$marca')";

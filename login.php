@@ -167,13 +167,20 @@ if ($login->isUserLoggedIn() == true) {
 															});
 														</script>
 													</div>
-													<div class="form-group mt-2">
+													<!--<div class="form-group mt-2">
 														<i class="input-icon uil uil-house-user"></i>
 														<input type="text" name="direccion" class="form-control"
 															placeholder="Tu Dirección" id="direccion" autocomplete="off">
-													</div>
+													</div>-->
+
 													<div class="form-row">
 														<div class="col-md-6">
+															<div class="form-group mt-2">
+																<i class="input-icon uil uil-house-user"></i>
+																<input type="text" name="direccion" class="form-control"
+																	placeholder="Tu Dirección" id="direccion"
+																	autocomplete="off">
+															</div>
 															<div class="form-group mt-2">
 																<i class="input-icon uil uil-user-circle"></i>
 																<input type="text" name="nombre_usuario"
@@ -181,21 +188,38 @@ if ($login->isUserLoggedIn() == true) {
 																	id="nombre_usuario" autocomplete="off">
 															</div>
 															<div class="form-group mt-2">
-																<i class="input-icon uil uil-at"></i>
-																<input type="email" name="usuario_email"
-																	class="form-control" placeholder="Tu Email"
-																	id="usuario_email" autocomplete="off">
+																<i class="input-icon uil uil-check-square"></i>
+																<select name="tipo_identificador" class="form-control"
+																	id="tipo_identificador">
+																	<option value="dni">DNI</option>
+																	<option value="pasaporte">Pasaporte</option>
+																</select>
 															</div>
 															<div class="form-group mt-2">
 																<i class="input-icon uil uil-dialpad-alt"></i>
-																<input type="number" name="dni" class="form-control"
-																	placeholder="Tu DNI" id="dni" autocomplete="off">
+																<input type="text" name="identificador" class="form-control"
+																	placeholder="Tu Identificador" id="identificador"
+																	autocomplete="off">
 																<script>
-																	document.getElementById("dni").addEventListener("input", function () {
-																		let dniInput = this.value.trim();
-																		if (dniInput.length === 8 && !isNaN(dniInput)) {
-																		} else {
-																			this.value = dniInput.slice(0, 8);
+																	document.getElementById("identificador").addEventListener("input", function () {
+																		let inputValue = this.value.trim();
+																		let tipoIdentificador = document.getElementById("tipo_identificador").value;
+
+																		// Validar DNI: longitud de 8 dígitos
+																		if (tipoIdentificador === "dni") {
+																			if (inputValue.length === 8 && !isNaN(inputValue)) {
+																				this.value = inputValue;
+																			} else {
+																				this.value = inputValue.slice(0, 8); // Limitar a 8 caracteres
+																			}
+																		}
+																		// Validar Pasaporte: longitud máxima de 10 caracteres
+																		else if (tipoIdentificador === "pasaporte") {
+																			if (inputValue.length <= 10 && !isNaN(inputValue)) {
+																				this.value = inputValue;
+																			} else {
+																				this.value = inputValue.slice(0, 10); // Limitar a 10 caracteres
+																			}
 																		}
 																	});
 																</script>
@@ -224,6 +248,12 @@ if ($login->isUserLoggedIn() == true) {
 															</div>
 														</div>
 														<div class="col-md-6">
+															<div class="form-group mt-2">
+																<i class="input-icon uil uil-at"></i>
+																<input type="email" name="usuario_email"
+																	class="form-control" placeholder="Tu Email"
+																	id="usuario_email" autocomplete="off">
+															</div>
 															<div class="form-group mt-2">
 																<i class="input-icon uil uil-lock-alt"></i>
 																<input type="password" name="user_password_new"
