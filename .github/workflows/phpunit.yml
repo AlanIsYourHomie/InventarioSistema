@@ -14,13 +14,17 @@ jobs:
       - name: Clonar repositorio
         uses: actions/checkout@v3
 
-      - name: Instalar PHP
+      - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+          coverage: none
 
       - name: Instalar Composer
-        run: composer install
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          php composer.phar install --no-interaction --prefer-dist
 
-      - name: Ejecutar pruebas
-        run: vendor/bin/phpunit --display-notices
+      - name: Ejecutar pruebas PHPUnit
+        run: |
+          vendor/bin/phpunit --display-notices
