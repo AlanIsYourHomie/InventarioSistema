@@ -20,11 +20,8 @@ jobs:
           php-version: '8.2'
           coverage: none
 
-      - name: Instalar Composer
-        run: |
-          curl -sS https://getcomposer.org/installer | php
-          php composer.phar install --no-interaction --prefer-dist
+      - name: Instalar dependencias con Composer
+        run: composer install --no-interaction --prefer-dist
 
       - name: Ejecutar pruebas PHPUnit
-        run: |
-          vendor/bin/phpunit --display-notices
+        run: vendor/bin/phpunit --display-notices
