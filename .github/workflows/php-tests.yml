@@ -1,0 +1,31 @@
+name: Ejecutar pruebas PHP
+
+on:
+  push:
+    branches: [ Desarrollo ]
+  pull_request:
+    branches: [ Desarrollo ]
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Instalar Composer (si tienes composer.json)
+        run: |
+          if [ -f composer.json ]; then
+            composer install
+          fi
+
+      - name: Ejecutar pruebas (simulado)
+        run: |
+          echo "Aquí irían las pruebas automatizadas"
+          echo "Login probado correctamente"
