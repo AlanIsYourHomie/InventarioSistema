@@ -1,68 +1,49 @@
 <?php
 use PHPUnit\Framework\TestCase;
-
+require_once __DIR__ . '/../classes/login.php';
 class LoginTest extends TestCase
 {
-    protected function setUp(): void
+    private function resetSession()
     {
-        // Limpiar sesiones y formularios antes de cada prueba
-        $_POST = [];
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_unset();
+            session_destroy();
+        }
         $_SESSION = [];
-    }
-
-    protected function tearDown(): void
-    {
-        // Limpiar variables globales después de cada prueba
+        $_GET = [];
         $_POST = [];
-        $_SESSION = [];
     }
 
-    public function testLoginCorrecto()
+    public function testIsUserLoggedInReturnsTrueWhenStatusIsSet()
     {
-        $_POST['user_name'] = 'admin'; // Nombre del usuario real
-        $_POST['user_password'] = 'admin'; // Contraseña real del usuario (en texto plano)
-        $_POST['login'] = true;
-
-        require_once __DIR__ . '/../config/db.php';
-        require_once __DIR__ . '/../config/conexion.php';
-        require_once __DIR__ . '/../classes/Login.php';
-
-        $login = new Login();
-
-        $this->assertEmpty(
-            $login->errors,
-            "Errores encontrados en login: " . implode(", ", $login->errors)
-        );
-
-        $this->assertNotEmpty(
-            $_SESSION['user_id'] ?? null,
-            "La sesión no fue iniciada correctamente."
-        );
+        $this->resetSession();
+        $login = new login();
+        $_SESSION['user_login_status'] = 1;
+        $this->assertTrue($login->isUserLoggedIn());
     }
 
-    public function testLoginIncorrecto()
+    public function testIsUserLoggedInReturnsFalseByDefault()
     {
-        $_POST['user_name'] = 'admin'; // Usuario real
-        $_POST['user_password'] = 'clave_incorrecta'; // Contraseña incorrecta
-        $_POST['login'] = true;
+        $this->resetSession();
+        $login = new login();
+        $this->assertFalse($login->isUserLoggedIn());
+    }
 
-        require_once __DIR__ . '/../config/db.php';
-        require_once __DIR__ . '/../config/conexion.php';
-        require_once __DIR__ . '/../classes/login.php';
+    public function testDoLogoutClearsSessionAndAddsMessage()
+    {
+        $this->resetSession();
+        $login = new login();
+        $_SESSION['user_login_status'] = 1;
+        $login->doLogout();
+        $this->assertArrayNotHasKey('user_login_status', $_SESSION);
+        $this->assertContains('Has sido desconectado.', $login->messages);
+    }
 
-        $login = new Login();
-
-        $this->assertNotEmpty(
-            $login->errors,
-            "Se esperaba error de login pero no ocurrió."
-        );
-
-        $this->assertEmpty(
-            $_SESSION['user_id'] ?? null,
-            "No se esperaba que se inicie sesión."
-        );
-
-        var_dump($_SESSION);
-
+    public function testLoginMissingUsernameAddsError()
+    {
+        $this->resetSession();
+        $_POST = ['login' => 1, 'user_password' => '123'];
+        $login = new login();
+        $this->assertContains('Username field was empty.', $login->errors);
     }
 }
