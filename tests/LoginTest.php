@@ -48,7 +48,7 @@ class LoginTest extends TestCase
 
         require_once __DIR__ . '/../config/db.php';
         require_once __DIR__ . '/../config/conexion.php';
-        require_once __DIR__ . '/../classes/Login.php';
+        require_once __DIR__ . '/../classes/login.php';
 
         $login = new Login();
 

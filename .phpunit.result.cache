@@ -1,1 +1,1 @@
-{"version":1,"defects":{"LoginTest::testLoginCorrecto":7,"LoginTest::testLoginIncorrecto":7},"times":{"LoginTest::testLoginCorrecto":0.09,"LoginTest::testLoginIncorrecto":0.073}}
+{"version":1,"defects":{"LoginTest::testLoginCorrecto":7,"LoginTest::testLoginIncorrecto":7},"times":{"LoginTest::testLoginCorrecto":0.058,"LoginTest::testLoginIncorrecto":0.07}}
