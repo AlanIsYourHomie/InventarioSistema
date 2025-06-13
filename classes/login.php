@@ -45,7 +45,7 @@ class Login
     /**
      * log in with post data
      */
-    private function dologinWithPostData()
+    public function dologinWithPostData()
     {
         // check login form contents
         if (empty($_POST['user_name'])) {
@@ -101,12 +101,15 @@ class Login
                         $_SESSION['user_name'] = $result_row->nombre_usuario;
                         $_SESSION['user_email'] = $result_row->usuario_email;
                         $_SESSION['user_login_status'] = 1;
+                        return true;
 
                     } else {
                         $this->errors[] = "Usuario y/o contraseña no coinciden.";
+                        return false;
                     }
                 } else {
                     $this->errors[] = "Usuario y/o contraseña no coinciden.";
+                    return false;
                 }
             } else {
                 $this->errors[] = "Problema de conexión de base de datos.";

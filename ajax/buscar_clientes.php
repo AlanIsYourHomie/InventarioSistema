@@ -55,10 +55,11 @@ if ($action == 'ajax') {
     }
     //$sWhere .= " WHERE ped.estado = '1' ORDER BY ped.idPedido DESC";
     if ($sWhere != "") {
-        $sWhere .= " AND c.estado='1'";
+        $sWhere .= " AND c.estado='1' AND (per.estado = 1 OR per.idPersona IS NULL)";
     } else {
-        $sWhere .= " WHERE c.estado='1'";
+        $sWhere .= " WHERE c.estado='1' AND (per.estado = 1 OR per.idPersona IS NULL)";
     }
+
     $sWhere .= " ORDER BY c.idCliente ASC";
     include 'pagination.php'; //include pagination file
     //pagination variables

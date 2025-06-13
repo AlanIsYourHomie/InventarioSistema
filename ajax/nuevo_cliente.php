@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 include('is_logged.php'); //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
@@ -76,33 +77,22 @@ if (empty($_POST['nombre'])) {
     $errors[] = "Un error desconocido ocurrió.";
 }
 
-if (isset($errors)) {
 
-    ?>
-    <div class="alert alert-danger" role="alert">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Error!</strong>
-        <?php
-        foreach ($errors as $error) {
-            echo $error;
-        }
-        ?>
-    </div>
-    <?php
+if (!empty($errors)) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => implode(' ', $errors)
+    ]);
+    exit;
 }
-if (isset($messages)) {
 
-    ?>
-    <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>¡Bien hecho!</strong>
-        <?php
-        foreach ($messages as $message) {
-            echo $message;
-        }
-        ?>
-    </div>
-    <?php
+if (!empty($messages)) {
+    echo json_encode([
+        'status' => 'ok',
+        'message' => implode(' ', $messages)
+    ]);
+    exit;
 }
+
 
 ?>
